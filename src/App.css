@@ -43,3 +43,8 @@
   width: 66%;
   background-color: blue;
 }
+
+.SearchBar {
+  width: 100%;
+  margin: 5px;
+}
