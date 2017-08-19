@@ -22,3 +22,24 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/******** Custom Styles ************/
+.Main {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+.MainChild {
+  height: 100%;
+}
+
+.Left {
+  width: 33%;
+  background-color: red;
+}
+
+.Right {
+  width: 66%;
+  background-color: blue;
+}
