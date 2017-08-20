@@ -34,7 +34,7 @@ export default class SearchBar extends Component {
                     </Col>
                     <Col md={2}>
                         <Button 
-                            type='submit' 
+                            type='button' 
                             bsStyle="primary"
                             onClick={this.handleSubmit}>Submit</Button>
                     </Col>
