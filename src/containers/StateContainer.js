@@ -6,7 +6,7 @@ import axios from 'axios';
 
 /*const username = process.env.REACT_APP_API_USERNAME;*/
 /*const password = process.env.REACT_APP_API_PASSWORD;*/
-const URI = process.env.REACT_APP_API_URI
+const URI = 'https://av-data-api.herokuapp.com/av-data/api/v1.0/'
 
 export default class StateContainer extends Component {
     constructor(props) {
