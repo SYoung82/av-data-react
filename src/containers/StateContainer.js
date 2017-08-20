@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import SearchBar from '../components/SearchBar.js'
+import axios from 'axios';
+
 
 export default class StateContainer extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-          searchTerm: '',
           airports: [],
           aircraft: []
         }
