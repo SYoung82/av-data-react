@@ -43,7 +43,9 @@
 
 .Right {
   width: 66%;
-  background-color: blue;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 8px;
 }
 
 .SearchBar {
