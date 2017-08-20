@@ -32,10 +32,11 @@
 
 .MainChild {
   height: 100%;
+  margin: 10px;
 }
 
-.Left {
-  width: 33%;
+.AirportInfo {
+  width: 100%;
   border-style: solid;
   border-width: 2px;
   border-radius: 8px;
