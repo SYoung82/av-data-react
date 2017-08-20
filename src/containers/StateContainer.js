@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import SearchBar from '../components/SearchBar.js'
+import SearchBar from '../components/SearchBar.js';
+import AirportInfo from '../components/AirportInfo.js';
 import axios from 'axios';
 
 const username = process.env.REACT_APP_API_USERNAME;
@@ -14,6 +15,10 @@ export default class StateContainer extends Component {
             airport: [],
             aircraft: []
         }
+    }
+
+    componentDidMount() {
+        this.fetchAirport('KIAH');
     }
 
     onSubmit(airport) {
@@ -47,7 +52,7 @@ export default class StateContainer extends Component {
             </div>
             <div className="Main">
                 <div className="Left MainChild">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <AirportInfo airport={this.state.airport} />
                 </div>
                 <div className="Right MainChild">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
