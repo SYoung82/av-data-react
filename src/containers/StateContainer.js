@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import SearchBar from '../components/SearchBar.js'
 import axios from 'axios';
 
+const username = process.env.REACT_APP_API_USERNAME;
+const password = process.env.REACT_APP_API_PASSWORD;
+const URI = process.env.REACT_APP_API_URI
 
 export default class StateContainer extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-          airports: [],
-          aircraft: []
+            airport: [],
+            aircraft: []
         }
     }
 
@@ -19,7 +22,17 @@ export default class StateContainer extends Component {
     }
 
     fetchAirport(airport) {
-        console.log('Fetching airport ' + airport);
+        console.log(URI, username, password)
+        const data = JSON.stringify({"airport_code": airport})
+
+        axios({
+            method: 'post',
+            url: URI,
+            headers: { "Content-Type": "application/json" },
+            data: data
+        })
+        .then(resp => this.setState({airport: resp.data.wx_obs.WeatherConditionsResult.conditions[0]}))
+        .catch(err => console.log(err))
     }
 
     fetchAircraft(airport) {
