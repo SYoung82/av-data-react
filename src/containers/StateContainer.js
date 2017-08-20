@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import SearchBar from '../components/SearchBar.js';
 import AirportInfo from '../components/AirportInfo.js';
 import Aircraft from '../components/Aircraft.js';
+import AirportDiagram from '../components/AirportDiagram.js';
 import axios from 'axios';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 /*const username = process.env.REACT_APP_API_USERNAME;*/
 /*const password = process.env.REACT_APP_API_PASSWORD;*/
@@ -56,19 +58,24 @@ export default class StateContainer extends Component {
 
     render() {
         return (
-        <div>    
-            <div>
+        <Grid>    
+            <Row>
                 <SearchBar onSubmit={ this.onSubmit.bind(this) } />
-            </div>
-            <div className="Main">
-                <div className="Left MainChild">
-                    <AirportInfo airport={this.state.airport} />
-                </div>
-                <div className="Right MainChild">
+            </Row>
+            <Row className="Main">
+                <Col md={4} className="Left MainChild">
+                    <Row>
+                        <AirportInfo airport={this.state.airport} />
+                    </Row>
+                    <Row>
+                        <AirportDiagram airport={this.state.airport} />
+                    </Row>
+                </Col>
+                <Col md={8} className="Right MainChild">
                     <Aircraft aircraft={this.state.aircraft} />
-                </div>
-            </div>
-        </div>
+                </Col>
+            </Row>
+        </Grid>
         )
     }
 }
