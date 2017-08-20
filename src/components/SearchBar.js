@@ -36,7 +36,6 @@ export default class SearchBar extends Component {
                     <Col md={2}>
                         <Button 
                             type='button' 
-                            bsStyle="primary"
                             onClick={this.handleSubmit}>Submit</Button>
                     </Col>
                     </FormGroup>
