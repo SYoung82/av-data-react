@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
 import SearchBar from '../components/SearchBar.js';
 import AirportInfo from '../components/AirportInfo.js';
+import Aircraft from '../components/Aircraft.js';
 import axios from 'axios';
 
-const username = process.env.REACT_APP_API_USERNAME;
-const password = process.env.REACT_APP_API_PASSWORD;
+/*const username = process.env.REACT_APP_API_USERNAME;*/
+/*const password = process.env.REACT_APP_API_PASSWORD;*/
 const URI = process.env.REACT_APP_API_URI
 
 export default class StateContainer extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             airport: [],
             aircraft: []
-        }
+        };
     }
 
     componentDidMount() {
         this.fetchAirport('KIAH');
+        this.fetchAircraft('KIAH');
     }
 
     onSubmit(airport) {
@@ -27,21 +29,29 @@ export default class StateContainer extends Component {
     }
 
     fetchAirport(airport) {
-        console.log(URI, username, password)
-        const data = JSON.stringify({"airport_code": airport})
+        const data = JSON.stringify({"airport_code": airport});
 
         axios({
             method: 'post',
-            url: URI,
+            url: URI + 'wx_obs',
             headers: { "Content-Type": "application/json" },
             data: data
         })
-        .then(resp => this.setState({airport: resp.data.wx_obs.WeatherConditionsResult.conditions[0]}))
-        .catch(err => console.log(err))
+        .then(resp => this.setState({airport: resp.data.wx.WeatherConditionsResult.conditions[0]}))
+        .catch(err => console.log(err));
     }
 
     fetchAircraft(airport) {
-        console.log('Fetching aircraft');
+        const data = JSON.stringify({"airport_code": airport});
+
+        axios({
+            method: 'post',
+            url: URI + 'aircraft_enroute',
+            headers: { "Content-Type": "application/json" },
+            data: data
+        })
+        .then(resp => this.setState({aircraft: resp.data.aircraft.AirportBoardsResult.enroute.flights}))
+        .catch(err => console.log(err));
     }
 
     render() {
@@ -55,7 +65,7 @@ export default class StateContainer extends Component {
                     <AirportInfo airport={this.state.airport} />
                 </div>
                 <div className="Right MainChild">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <Aircraft aircraft={this.state.aircraft} />
                 </div>
             </div>
         </div>
