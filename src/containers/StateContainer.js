@@ -33,7 +33,7 @@ export default class StateContainer extends Component {
 
         axios({
             method: 'post',
-            url: URI + 'wx_obs',
+            url: 'https://av-data-api.herokuapp.com/av-data/api/v1.0/wx_obs',
             headers: { "Content-Type": "application/json" },
             data: data
         })
@@ -46,7 +46,7 @@ export default class StateContainer extends Component {
 
         axios({
             method: 'post',
-            url: URI + 'aircraft_enroute',
+            url: 'https://av-data-api.herokuapp.com/av-data/api/v1.0/aircraft_enroute',
             headers: { "Content-Type": "application/json" },
             data: data
         })
