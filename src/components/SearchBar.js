@@ -15,6 +15,7 @@ export default class SearchBar extends Component {
     }
 
     handleSubmit(e) {
+        e.preventDefault();
         this.props.onSubmit(this.state.value)
     }
 
@@ -22,7 +23,7 @@ export default class SearchBar extends Component {
         return (
             <Grid  className="SearchBar">
             <Row>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <FormGroup>
                     <Col md={10}>
                         <FormControl
