@@ -23,12 +23,10 @@ export default class StateContainer extends Component {
 
     componentDidMount() {
         this.fetchAirport('KIAH');
-        this.fetchAircraft('KIAH');
     }
 
     onSubmit(airport) {
         this.fetchAirport(airport);
-        this.fetchAircraft(airport); 
     }
 
     onSelect(selectedKey) {
@@ -46,7 +44,18 @@ export default class StateContainer extends Component {
             headers: { "Content-Type": "application/json" },
             data: data
         })
-        .then(resp => this.setState({airport: resp.data.wx.WeatherConditionsResult.conditions[0]}))
+        .then(resp => {
+            if(resp.data.wx.error || !resp.data.wx.WeatherConditionsResult) { 
+                this.setState({airport: {airport_code: airport.toUpperCase(), raw_data: "Error loading wx data or wx unavailable"}}, function() {
+                    this.fetchAircraft(this.state.airport.airport_code);
+                })
+            }
+            else {
+                this.setState({airport: resp.data.wx.WeatherConditionsResult.conditions[0]}, function() {
+                    this.fetchAircraft(this.state.airport.airport_code);
+                })
+            }
+        })
         .catch(err => console.log(err));
     }
 
@@ -61,7 +70,6 @@ export default class StateContainer extends Component {
             data: data
         })
         .then(resp => {
-            console.log(resp.data.aircraft.AirportBoardsResult);
             this.setState({aircraft: eval('resp.data.aircraft.AirportBoardsResult.' + this.state.aircraftType + '.flights')});
         })
         .catch(err => console.log(err));

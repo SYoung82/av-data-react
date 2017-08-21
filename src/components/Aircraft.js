@@ -3,7 +3,24 @@ import React, { Component } from 'react';
 export default class Aircraft extends Component {
     render() {
         const aircraft = this.props.aircraft;
-        console.log(Object.keys(aircraft));
+
+        if(aircraft === undefined) {
+            return (
+                <div className="Aircraft">
+                    <h1>Aircraft {this.props.aircraftType[0].toUpperCase() + this.props.aircraftType.substr(1)}</h1>
+                    <p>Error retrieving flight information, try again or enter a different airport code.</p>
+                </div>
+            )
+        }
+
+        if(aircraft.length === 0) {
+            return(
+                <div className="Aircraft">
+                    <h1>Aircraft {this.props.aircraftType[0].toUpperCase() + this.props.aircraftType.substr(1)}</h1>
+                    <p>No aircraft listed as {this.props.aircraftType}.</p>
+                </div>
+            )
+        }
 
         return (
             <div className="Aircraft">
