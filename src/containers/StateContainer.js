@@ -3,12 +3,12 @@ import SearchBar from '../components/SearchBar.js';
 import AirportInfo from '../components/AirportInfo.js';
 import Aircraft from '../components/Aircraft.js';
 import AirportDiagram from '../components/AirportDiagram.js';
+import NavBar from '../components/NavBar.js';
 import axios from 'axios';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 /*const username = process.env.REACT_APP_API_USERNAME;*/
 /*const password = process.env.REACT_APP_API_PASSWORD;*/
-const URI = 'https://av-data-api.herokuapp.com/av-data/api/v1.0/'
 
 export default class StateContainer extends Component {
     constructor(props) {
@@ -17,7 +17,7 @@ export default class StateContainer extends Component {
         this.state = {
             airport: [],
             aircraft: [],
-            dropdown: "enroute"
+            aircraftType: "enroute"
         };
     }
 
@@ -29,6 +29,12 @@ export default class StateContainer extends Component {
     onSubmit(airport) {
         this.fetchAirport(airport);
         this.fetchAircraft(airport); 
+    }
+
+    onSelect(selectedKey) {
+        this.setState({aircraftType: selectedKey}, function() {
+            this.fetchAircraft(this.state.airport.airport_code);
+        });
     }
 
     fetchAirport(airport) {
@@ -46,14 +52,15 @@ export default class StateContainer extends Component {
 
     fetchAircraft(airport) {
         const data = JSON.stringify({"airport_code": airport});
-
+        const URI = 'https://av-data-api.herokuapp.com/av-data/api/v1.0/aircraft_' + this.state.aircraftType;
+        
         axios({
             method: 'post',
-            url: 'https://av-data-api.herokuapp.com/av-data/api/v1.0/aircraft_enroute',
+            url: URI,
             headers: { "Content-Type": "application/json" },
             data: data
         })
-        .then(resp => this.setState({aircraft: resp.data.aircraft.AirportBoardsResult.enroute.flights}))
+        .then(resp => this.setState({aircraft: eval('resp.data.aircraft.AirportBoardsResult.' + this.state.aircraftType + '.flights')}))
         .catch(err => console.log(err));
     }
 
@@ -61,7 +68,7 @@ export default class StateContainer extends Component {
         return (
         <Grid>    
             <Row>
-                <SearchBar onSubmit={ this.onSubmit.bind(this) } />
+                <SearchBar onSubmit={this.onSubmit.bind(this)} />
             </Row>
             <Row className="Main">
                 <Col md={4} className="Left MainChild">
@@ -73,7 +80,12 @@ export default class StateContainer extends Component {
                     </Row>
                 </Col>
                 <Col md={8} className="Right MainChild">
-                    <Aircraft aircraft={this.state.aircraft} dropdown={this.state.dropdown} />
+                <Row>
+                    <NavBar handleSelect={this.onSelect.bind(this)} />
+                </Row>
+                <Row>
+                    <Aircraft aircraft={this.state.aircraft} aircraftType={this.state.aircraftType} />
+                </Row>
                 </Col>
             </Row>
         </Grid>
