@@ -7,6 +7,7 @@ export default class Aircraft extends Component {
 
         return (
             <div>
+                <h1>Aircraft {this.props.dropdown[0].toUpperCase() + this.props.dropdown.substr(1)}</h1>
                 {aircraft.map( ac => {
                     return (
                         <div key={ac.tailnumber}>

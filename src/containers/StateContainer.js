@@ -16,7 +16,8 @@ export default class StateContainer extends Component {
 
         this.state = {
             airport: [],
-            aircraft: []
+            aircraft: [],
+            dropdown: "enroute"
         };
     }
 
@@ -72,7 +73,7 @@ export default class StateContainer extends Component {
                     </Row>
                 </Col>
                 <Col md={8} className="Right MainChild">
-                    <Aircraft aircraft={this.state.aircraft} />
+                    <Aircraft aircraft={this.state.aircraft} dropdown={this.state.dropdown} />
                 </Col>
             </Row>
         </Grid>
