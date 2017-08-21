@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Nav, NavItem, MenuItem } from 'react-bootstrap';
+import { Nav, NavItem } from 'react-bootstrap';
 
 export default class NavBar extends Component {
     constructor(props) {
@@ -14,9 +14,10 @@ export default class NavBar extends Component {
 
     render() {
         return (
-            <Nav bsStyle="tabs" activeKey="enroute" onSelect={this.handleSelect}>
+            <Nav bsStyle="tabs" onSelect={this.handleSelect}>
                 <NavItem eventKey="enroute" title="Enroute">Enroute</NavItem>
                 <NavItem eventKey="departures" title="Departures">Departures</NavItem>
+                <NavItem eventKey="arrivals" title="Arrivals">Arrivals</NavItem>
             </Nav>
         )
     }
