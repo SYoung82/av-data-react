@@ -6,14 +6,14 @@ export default class Aircraft extends Component {
         console.log(Object.keys(aircraft));
 
         return (
-            <div>
-                <h1>Aircraft {this.props.dropdown[0].toUpperCase() + this.props.dropdown.substr(1)}</h1>
+            <div className="Aircraft">
+                <h1>Aircraft {this.props.aircraftType[0].toUpperCase() + this.props.aircraftType.substr(1)}</h1>
                 {aircraft.map( ac => {
                     return (
                         <div key={ac.tailnumber}>
                             {ac.airline ? <h3>{ac.airline}{ac.flightnumber}</h3> : <h3>{ac.tailnumber}</h3>}
                             <p>Route: {ac.route}</p>
-                            <p>ETA: {ac.estimated_arrival_time.dow} {ac.estimated_arrival_time.date} @ {ac.estimated_arrival_time.time} {ac.estimated_arrival_time.tz}</p>
+                            <p>{this.props.aircraftType != 'departures' ? 'ETA:' : 'ETD:'} {ac.estimated_arrival_time.dow} {ac.estimated_arrival_time.date} @ {ac.estimated_arrival_time.time} {ac.estimated_arrival_time.tz}</p>
                         </div>
                     )
                 })}
