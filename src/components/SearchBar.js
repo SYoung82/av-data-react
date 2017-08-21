@@ -22,8 +22,8 @@ export default class SearchBar extends Component {
 
     render() {
         return (
-            <Grid  className="SearchBar">
-            <Row>
+            <Grid>
+            <Row className="SearchBar center-block">
                 <form onSubmit={this.handleSubmit}>
                     <FormGroup>
                     <Col md={10}>

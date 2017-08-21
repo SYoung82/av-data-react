@@ -60,7 +60,10 @@ export default class StateContainer extends Component {
             headers: { "Content-Type": "application/json" },
             data: data
         })
-        .then(resp => this.setState({aircraft: eval('resp.data.aircraft.AirportBoardsResult.' + this.state.aircraftType + '.flights')}))
+        .then(resp => {
+            console.log(resp.data.aircraft.AirportBoardsResult);
+            this.setState({aircraft: eval('resp.data.aircraft.AirportBoardsResult.' + this.state.aircraftType + '.flights')});
+        })
         .catch(err => console.log(err));
     }
 

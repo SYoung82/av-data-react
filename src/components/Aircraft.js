@@ -13,7 +13,7 @@ export default class Aircraft extends Component {
                         <div key={ac.tailnumber}>
                             {ac.airline ? <h3>{ac.airline}{ac.flightnumber}</h3> : <h3>{ac.tailnumber}</h3>}
                             <p>Route: {ac.route}</p>
-                            <p>{this.props.aircraftType != 'departures' ? 'ETA:' : 'ETD:'} {ac.estimated_arrival_time.dow} {ac.estimated_arrival_time.date} @ {ac.estimated_arrival_time.time} {ac.estimated_arrival_time.tz}</p>
+                            <p>{this.props.aircraftType !== 'departures' ? 'ETA:' : 'ETD:'} {ac.estimated_arrival_time.dow} {ac.estimated_arrival_time.date} @ {ac.estimated_arrival_time.time} {ac.estimated_arrival_time.tz}</p>
                         </div>
                     )
                 })}
