@@ -19,6 +19,11 @@ export default class StateContainer extends Component {
             aircraft: [],
             aircraftType: "enroute"
         };
+
+        // Fire bad request to server to wake heroku up
+        // Saves on initial load time during componentDidMount
+        axios.get('https://av-data-api.herokuapp.com/av-data/api/v1.0/')
+        .catch( err => console.log('Server awake now'));
     }
 
     componentDidMount() {
